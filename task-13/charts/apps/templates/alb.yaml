@@ -1,0 +1,27 @@
+# Создайте неймспейс для контроллера
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: yc-alb-ingress
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1" 
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: yc-alb-ingress
+  namespace: argocd
+spec:
+  destination:
+    namespace: yc-alb-ingress
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    path: charts/yc-alb-ingress
+    repoURL: {{ .Values.spec.source.repoURL }}
+    targetRevision: {{ .Values.spec.source.targetRevision }}
+    helm:
+      valueFiles:
+        - secrets+age-import:///helm-secrets-private-keys/key.txt?yc-alb-ingress.yaml
+  syncPolicy:
+    automated: {}
