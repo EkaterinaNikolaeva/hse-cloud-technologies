@@ -1,0 +1,6 @@
+spec:
+  source:
+    repoURL: https://task-13-yekat.gitlab.yandexcloud.net/yc-cources/infra.git
+    targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc

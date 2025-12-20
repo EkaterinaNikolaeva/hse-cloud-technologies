@@ -1,0 +1,6 @@
+spec:
+  source:
+    repoURL:
+    targetRevision:
+  destination:
+    server:
